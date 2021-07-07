@@ -1,0 +1,4 @@
+---
+# If not running locally then set value so as not linked from tmp
+home_path: "/home/"
+username: "vagrant"

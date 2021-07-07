@@ -29,3 +29,6 @@ suites:
   - name: chef
     provisioner:
       ansible_extra_flags: '--tags=chef'
+  - name: sudoers
+    provisioner:
+      ansible_extra_flags: '--tags=sudoers'

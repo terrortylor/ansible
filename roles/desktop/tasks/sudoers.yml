@@ -1,0 +1,8 @@
+---
+- name: Permission to setup terraform symlinks
+  ansible.builtin.copy:
+    src: sudoers/terraform
+    dest: /etc/sudoers.d/terraform
+    owner: root
+    group: root
+    validate: /usr/sbin/visudo -csf %s

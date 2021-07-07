@@ -1,4 +1,9 @@
 ---
+- name: Setup sudoers
+  import_tasks: sudoers.yml
+  tags:
+    - sudoers
+
 - name: Install standalone tools
   import_tasks: general.yml
   tags:

@@ -1,0 +1,2 @@
+ALL ALL=(ALL) NOPASSWD: /usr/bin/unlink /usr/local/bin/terraform
+ALL ALL=(ALL) NOPASSWD: /usr/bin/ln -s /usr/local/bin/terraform-* /usr/local/bin/terraform
