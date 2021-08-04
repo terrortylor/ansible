@@ -11,6 +11,12 @@ provisioner:
   name: ansible
 verifier:
   name: testinfra
+scenario:
+  test_sequence:
+    - destroy
+    - create
+    - converge
+    - verify
 lint: |
   set -e
   yamllint .
