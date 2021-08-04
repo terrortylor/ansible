@@ -1,8 +1,7 @@
 ---
-package:
-  name: ''
-  version: ''
-  version_cmd: '--version'
-  src: ''
-  extracted_path: ''
-
+name: ''
+version: ''
+version_cmd: '--version'
+src: ''
+extracted_path: ''
+path: '/usr/local/bin'

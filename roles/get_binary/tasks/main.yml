@@ -1,39 +1,40 @@
 ---
-- name: "check {{ package.name }} is installed" 
+- name: "check {{ name }} is installed" 
   ansible.builtin.stat:
-    path: "/usr/local/bin/{{ package.name }}" 
+    path: "{{ path }}/{{ name }}" 
   register: file
 
-- name: "check {{ package.name }} version" 
-  command: "{{ package.name }} {{ package.version_cmd }}" 
-  register: version
+- name: "check {{ name }} version" 
+  command: "{{ name }} {{ version_cmd }}" 
+  register: version_stat
   when: "file.stat.exists"
   changed_when: False
   failed_when: False
 
-- name: "Remove outdated package {{ package.name }}" 
+- name: "Remove outdated package {{ name }}" 
   ansible.builtin.file:
-    dest: "/usr/local/bin/{{ package.name }}" 
+    dest: "{{ path }}/{{ name }}" 
     state: absent
   when: 
     - file.stat.exists
-    - package.version not in version.stdout
+    - version not in version_stat.stdout
 
 - name: "Get package"
   block:
 
-  - name: "Download {{ package.name }}"
+  - name: "Download {{ name }}"
     unarchive:
-      src: "{{ package.src }}"
+      src: "{{ src }}"
       dest: /tmp
       remote_src: yes
 
-  - name: "Copy {{ package.name }} to /usr/local/bin" 
+  - name: "Copy {{ name }} to {{ path }}" 
     copy:
-      src: "/tmp/{{ package.extracted_path }}"
-      dest: "/usr/local/bin/{{ package.name }}" 
+      remote_src: True
+      src: "/tmp/{{ extracted_path }}"
+      dest: "{{ path }}/{{ name }}" 
       owner: root
       group: root
       mode: +x
 
-  when: "not file.stat.exists or package.version not in version.stdout"
+  when: "not file.stat.exists or version not in version_stat.stdout"

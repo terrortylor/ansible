@@ -1,0 +1,36 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: Download and unpack binary
+      include_role:
+        name: get_binary
+      vars:
+        name: lazygit
+        version: 0.28.1
+        src: "https://github.com/jesseduffield/lazygit/releases/download/v0.28.1/lazygit_0.28.1_Linux_x86_64.tar.gz"
+        extracted_path: lazygit
+    - name: Check overrides with different version
+      include_role:
+        name: get_binary
+      vars:
+        name: lazygit
+        version: 0.28.2
+        src: "https://github.com/jesseduffield/lazygit/releases/download/v0.28.2/lazygit_0.28.2_Linux_x86_64.tar.gz"
+        extracted_path: lazygit
+    - name: change binary name
+      include_role:
+        name: get_binary
+      vars:
+        name: wallace
+        version: 0.28.2
+        src: "https://github.com/jesseduffield/lazygit/releases/download/v0.28.2/lazygit_0.28.2_Linux_x86_64.tar.gz"
+        extracted_path: lazygit
+    - name: can override tar extracted to path and/or version command
+      include_role:
+        name: get_binary
+      vars:
+        name: helm
+        src: "https://get.helm.sh/helm-v3.3.3-linux-amd64.tar.gz"
+        version_cmd: version
+        extracted_path: linux-amd64/helm
