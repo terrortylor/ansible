@@ -1,0 +1,24 @@
+---
+name: verify
+on:
+  workflow_dipatch:
+  push:
+jobs:
+  molecule_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+      - name: Set up python 3
+        uses: actions/setup-python@v2.2.2
+        with:
+          python-version: '3.x'
+      - name: Install pip dependencies
+        run: pip3 install ansible-lint molecule[docker,lint,ansible] pytest-testinfra
+      - name: Run molecule on get_binary role
+        working-directory: ./roles/get_binary
+        run: molecule verify
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+
