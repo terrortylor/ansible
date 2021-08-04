@@ -1,7 +1,7 @@
 ---
 name: verify
 on:
-  workflow_dispatch:
+  # workflow_dispatch:
   push:
 jobs:
   molecule_tests:
@@ -17,7 +17,7 @@ jobs:
         run: pip3 install ansible-lint molecule[docker,lint,ansible] pytest-testinfra
       - name: Run molecule on get_binary role
         working-directory: ./roles/get_binary
-        run: molecule verify
+        run: molecule test
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
